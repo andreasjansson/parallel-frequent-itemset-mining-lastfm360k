@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# TODO: initial threshold pruning (but not enough to make it too fast for hadoop :) )
+
 import sys
 
 current_artist = None
