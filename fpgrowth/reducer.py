@@ -1,18 +1,17 @@
 #!/usr/bin/env python
 
 import sys
-import heapq
 from collections import defaultdict, namedtuple
 import itertools
+import simplejson as json
 
-MIN_SUPPORT = 3
+MIN_SUPPORT = 10
 
 def main():
 
     current_group_id = None
     transactions = []
-#    for line in sys.stdin:
-    for line in open('/home/andreas/scratch/mapped.tsv', 'r'):
+    for line in sys.stdin:
         group_id, artists = line.strip().split('\t', 1)
         artists = artists.split('\t')
 
@@ -29,7 +28,7 @@ def main():
 
 def output_frequent_itemsets(transactions):        
     fp_tree, header_table = build_fp_tree(transactions)
-    frequent_itemsets = mine_frequent_itemsets(fp_tree, header_table)
+    mine_frequent_itemsets(fp_tree, header_table)
 
 ArtistSupport = namedtuple('ArtistSupport', ['artist', 'support'])
 
@@ -97,6 +96,9 @@ class Pattern(object):
     def __str__(self):
         return '(%s):%d' % (','.join(self.artists), self.support)
 
+    def to_json(self):
+        return json.dumps({'artists': list(self.artists), 'support': self.support})
+
 def build_fp_tree(transactions):
     fp_tree = Node(None, None, None, [])
     header_table = defaultdict(list)
@@ -121,12 +123,8 @@ def insert_transaction(fp_tree, header_table, transaction):
             current_node = new_node
 
 def mine_frequent_itemsets(fp_tree, header_table):
-    patterns = []
     for pattern in fp_growth(fp_tree, header_table, None):
-        patterns.append(pattern)
-    import ipdb; ipdb.set_trace()
-
-    # TODO: heapq is by default a min heap. negate the values
+        print '%s\t%s' % ('_', pattern.to_json())
 
 def combinations(x):
     for i in xrange(1, len(x) + 1):
