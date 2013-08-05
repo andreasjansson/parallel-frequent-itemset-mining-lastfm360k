@@ -5,7 +5,7 @@ from collections import defaultdict, namedtuple
 import itertools
 import simplejson as json
 
-MIN_SUPPORT = 10
+MIN_SUPPORT = 5
 
 def main():
 
@@ -17,18 +17,19 @@ def main():
 
         if group_id != current_group_id:
             if current_group_id is not None:
-                output_frequent_itemsets(transactions)
+                output(transactions)
                 transactions = []
             current_group_id = group_id
 
         transactions.append(artists)
 
     if current_group_id is not None:
-        output_frequent_itemsets(transactions)
+        output(transactions)
 
-def output_frequent_itemsets(transactions):        
+def output(transactions):        
     fp_tree, header_table = build_fp_tree(transactions)
-    mine_frequent_itemsets(fp_tree, header_table)
+    for pattern in fp_growth(fp_tree, header_table, None):
+        print '%s\t%s' % ('_', pattern.to_json())
 
 ArtistSupport = namedtuple('ArtistSupport', ['artist', 'support'])
 
@@ -121,10 +122,6 @@ def insert_transaction(fp_tree, header_table, transaction):
             current_node.children.append(new_node)
             header_table[artist].append(new_node)
             current_node = new_node
-
-def mine_frequent_itemsets(fp_tree, header_table):
-    for pattern in fp_growth(fp_tree, header_table, None):
-        print '%s\t%s' % ('_', pattern.to_json())
 
 def combinations(x):
     for i in xrange(1, len(x) + 1):

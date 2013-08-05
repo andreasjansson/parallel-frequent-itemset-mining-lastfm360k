@@ -2,9 +2,13 @@
 
 import sys
 
-for line in sys.stdin:
-    try:
-        user, artist_mbid, artist, plays = line.strip().split('\t')
-        print '%s\t%s' % (user, artist)
-    except ValueError:
-        pass
+def main():
+    for line in sys.stdin:
+        try:
+            user, artist_mbid, artist, plays = line.strip().split('\t')
+            print '%s\t%s' % (user, artist)
+        except ValueError:
+            pass
+
+if __name__ == '__main__':
+    main()
