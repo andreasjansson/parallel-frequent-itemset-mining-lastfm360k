@@ -9,7 +9,7 @@ def main():
             _, pattern_raw = line.strip().split('\t')
             pattern = json.loads(pattern_raw)
         except (ValueError, json.JSONDecodeError) as e:
-            sys.stderr.write('reporter:counter:errors,map_input_line_invalid,1')
+            sys.stderr.write('reporter:counter:errors,map_input_line_invalid,1\n')
             continue
 
         for artist in pattern['artists']:

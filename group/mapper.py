@@ -12,10 +12,14 @@ def main():
 
     n_groups = 100
     n_artists = len(artist_counts)
-    n_per_group = int(math.ceil(n_artists / float(n_groups)))
+    n_per_group = n_artists / float(n_groups)
+    offset = 0
 
+    # output lines in the form GROUP\tARTIST1\tARTIST2\tARTIST3, etc., for each group
     for i in xrange(0, n_groups):
-        group = artist_counts[i * n_per_group : (i + 1) * n_per_group]
+        next_offset = offset + n_per_group + 1
+        group = artist_counts[int(offset) : int(next_offset)]
+        offset = next_offset
         artist_count_strings = ['%s:%d' % (artist, count) for artist, count in group]
         print '%s\t%s' % (i, '\t'.join(artist_count_strings))
 
