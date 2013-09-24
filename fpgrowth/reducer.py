@@ -7,7 +7,7 @@ import simplejson as json
 import contextlib
 import resource
 
-MIN_SUPPORT = 20
+MIN_SUPPORT = 50
 
 def main():
 
