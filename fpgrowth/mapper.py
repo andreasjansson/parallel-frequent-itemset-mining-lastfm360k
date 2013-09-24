@@ -14,6 +14,9 @@ def main(group_file_name):
         # artists in a transaction will be in the format ARTIST1\tARTIST2\tARTIST3, etc.
         artists = artists.split('\t')
 
+        # group_list has already been pruned, but artists hasn't
+        artists = [artist for artist in artists if artist in group_list]
+
         # for each transaction, sort artists by count in descending order
         try:
             artists = sorted(artists, key=lambda artist: group_list[artist].count, reverse=True)

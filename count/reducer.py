@@ -2,6 +2,8 @@
 
 import sys
 
+MIN_SUPPORT = 200
+
 def main():
     current_artist = None
     current_count = 0
@@ -21,7 +23,9 @@ def main():
         output(current_artist, current_count)
 
 def output(artist, count):
-    print '%s\t%d' % (artist, count)
+    # initial pruning
+    if count >= MIN_SUPPORT:
+        print '%s\t%d' % (artist, count)
 
 if __name__ == '__main__':
     main()

@@ -7,8 +7,7 @@ def main():
     current_artists = []
 
     for line in sys.stdin:
-        group, artists = line.strip().split('\t', 1)
-        artists = artists.split('\t')
+        group, artist = line.strip().split('\t')
 
         if group != current_group:
             if current_group is not None:
@@ -16,7 +15,7 @@ def main():
                 current_artists = []
             current_group = group
 
-        current_artists.extend(artists)
+        current_artists.append(artist)
 
     if current_group is not None:
         output(current_group, current_artists)
