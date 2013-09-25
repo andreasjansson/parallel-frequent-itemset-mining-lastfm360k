@@ -4,7 +4,7 @@ import sys
 import math
 import random
 
-N_GROUPS = 100
+N_GROUPS = 1000
 
 def main():
     artist_counts = []

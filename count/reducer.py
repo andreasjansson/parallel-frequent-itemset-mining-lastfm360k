@@ -2,7 +2,7 @@
 
 import sys
 
-MIN_SUPPORT = 200
+MIN_SUPPORT = 500
 
 def main():
     current_artist = None

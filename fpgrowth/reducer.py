@@ -5,9 +5,8 @@ from collections import defaultdict, namedtuple
 import itertools
 import simplejson as json
 import contextlib
-import resource
 
-MIN_SUPPORT = 200
+MIN_SUPPORT = 500
 
 def main():
 

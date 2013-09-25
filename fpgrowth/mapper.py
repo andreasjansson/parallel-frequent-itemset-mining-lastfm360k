@@ -32,6 +32,11 @@ def main(group_file_name):
         # iterate backwards through the ordered list of artists in the transaction
         # for each distinct group, emit the transaction to that group-specific reducer.
         for i, group_id in reversed(list(enumerate(artist_groups))):
+
+            # we don't care about length 1 itemsets
+            if i == 0:
+                continue
+
             if group_id not in emitted_groups:
                 emitted_groups.add(group_id)
 
